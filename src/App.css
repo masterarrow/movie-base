@@ -1,38 +1,160 @@
+:root {
+    --background-color: #282c34;
+    background-color: var(--background-color);
+}
+
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+    text-align: center;
+    background-color: var(--background-color);
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+    /* min-height: 100vh; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.navbar {
+    background-color: var(--background-color);
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.7rem 1rem;
+    z-index: 1;
+    width: 100%;
+    margin: auto;
+    top: 0;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+body {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 4rem;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+}
+
+.search {
+    background-color: gainsboro;
+}
+
+.input-box {
+    background-color: gainsboro;
+}
+
+.logout {
+    background-color: var(--background-color);
+    width: 30%;
+    margin-top: 6rem;
+    margin-left: 2rem;
+    text-align: left;
+    font-size: calc(10px + 2vmin);
+    color: white;
+}
+
+.sign-in {
+    background-color: var(--background-color);
+    transform: translate(0%, 60%);
+    text-align: left;
+}
+
+.card {
+    background-color: var(--background-color);
+    border-color: white;
+    color: white;
+}
+
+.text-box {
+    border: none;
+    border-bottom: 2px solid white;
+}
+
+.text-box:hover {
+    border-bottom: 3px solid white;
+}
+
+.text-box input {
+    border: none;
+    background-color: transparent;
+    color: white;
+}
+
+.text-box input:enabled {
+    background-color: transparent;
+}
+
+.text-box span {
+    background-color: transparent;
+    border: none;
+    font-size: x-large;
+    color: white;
+    font-weight: bolder;
+}
+
+.text-box-reset {
+    border: none;
+    border-bottom: 2px solid #ffc55a;
+    width: 25rem;
+}
+
+.new-movie {
+    background-color: var(--background-color);
+    transform: translate(0%, 3%);
+    text-align: left;
+}
+
+.page-nav {
+    display: flex;
+    justify-content: center;
+}
+
+.lds-dual-ring {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+}
+
+.lds-dual-ring:after {
+    margin-top: 5rem;
+    content: " ";
+    display: block;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: 6px solid #ffd488;
+    border-color: #ffd488 transparent #ffd488 transparent;
+    animation: lds-dual-ring 1.2s linear infinite;
+}
+
+@keyframes lds-dual-ring {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.error {
+    margin-top: 7rem;
+}
+
+.movie-title {
+    color: white;
+    transform: translate(0%, -250%);
+    font-size: medium;
+}
+
+.movie-details {
+    top: 0.5rem;
+    border: none;
 }
