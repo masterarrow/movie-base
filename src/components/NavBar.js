@@ -9,7 +9,7 @@ const NavBar = () => {
 
     const mainLink = {
         color: "white",
-        fontWeight:"bold"
+        fontWeight:"bold",
     };
 
     const linkStyle = {

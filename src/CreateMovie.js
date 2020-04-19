@@ -61,7 +61,7 @@ const CreateMovie = ({ match }) => {
 
     const renderRedirect = () => {
         // If user add a new movie, go to the Home Page
-        if(redirect) {
+        if (redirect) {
             return <Redirect to="/"/>
         }
     };
@@ -73,7 +73,7 @@ const CreateMovie = ({ match }) => {
                 <div className="row justify-content-center">
                     <div className="col-md-11">
                         <div className="card">
-                            <div className="card-body">
+                            <div className="card-body new-movie-card">
                                 <form id="new-movie-form">
                                     <fieldset className="form-group">
                                         <legend className="border-bottom mb-3">{match ? "Edit Movie" : "New Movie"}</legend>

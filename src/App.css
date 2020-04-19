@@ -20,6 +20,7 @@
 
 .navbar {
     background-color: var(--background-color);
+    box-shadow: 0 2px 5px lightgrey;
     position: fixed;
     display: flex;
     justify-content: space-between;
@@ -31,6 +32,18 @@
     top: 0;
 }
 
+.navbar-brand:hover {
+    font-style: italic;
+}
+
+.nav-link:hover {
+    font-style: italic;
+}
+
+.dropdown-item:hover {
+    font-style: italic;
+}
+
 body {
     justify-content: center;
     align-items: center;
@@ -38,17 +51,20 @@ body {
     margin-top: 4rem;
 }
 
-.row {
-    display: flex;
-    justify-content: center;
-}
-
 .search {
     background-color: gainsboro;
 }
 
+.search:hover {
+    background-color: white;
+}
+
 .input-box {
     background-color: gainsboro;
+}
+
+.input-box:hover {
+    background-color: white;
 }
 
 .logout {
@@ -67,6 +83,10 @@ body {
     text-align: left;
 }
 
+.sing-in-card {
+    box-shadow: 0 5px 15px lightgrey;
+}
+
 .card {
     background-color: var(--background-color);
     border-color: white;
@@ -79,7 +99,7 @@ body {
 }
 
 .text-box:hover {
-    border-bottom: 3px solid white;
+    border-bottom: 2px solid lightblue;
 }
 
 .text-box input {
@@ -90,6 +110,8 @@ body {
 
 .text-box input:enabled {
     background-color: transparent;
+    color: white;
+    border: none;
 }
 
 .text-box span {
@@ -110,6 +132,18 @@ body {
     background-color: var(--background-color);
     transform: translate(0%, 3%);
     text-align: left;
+}
+
+.new-movie-card {
+    box-shadow: 0 5px 15px lightgrey;
+}
+
+.movie-card {
+    box-shadow: 0 5px 15px lightgrey;
+}
+
+.movie-card:hover {
+    box-shadow: 0 5px 30px lightgrey;
 }
 
 .page-nav {
@@ -157,4 +191,14 @@ body {
 .movie-details {
     top: 0.5rem;
     border: none;
+}
+
+.movie-tooltip {
+    min-width: 360px;
+    max-width: 360px;
+    height: 270px;
+    background-color: white;
+    color: grey;
+    text-align: left;
+    border-radius: 10px;
 }

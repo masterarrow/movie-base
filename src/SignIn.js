@@ -72,13 +72,14 @@ const SignIn = () => {
                 <div className="row justify-content-center">
                     <div className="col-md-7">
                         <div className="card">
-                            <div className="card-body">
+                            <div className="card-body sing-in-card">
                                 <form id="sign-in-form">
                                     <fieldset className="form-group">
                                         <legend className="legend border-bottom mb-4">Sign In</legend>
                                         <div className="text-box input-group mb-4">
                                             <div className="input-group-prepend">
                                                 <span className="input-group-text">
+                                                    {/* Bootstrap icons */}
                                                     <svg className="bi bi-person-fill" width="1em" height="1em"
                                                          viewBox="0 0 16 16" fill="currentColor"
                                                          xmlns="http://www.w3.org/2000/svg">
