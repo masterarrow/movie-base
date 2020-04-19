@@ -138,14 +138,6 @@ body {
     box-shadow: 0 5px 15px lightgrey;
 }
 
-.movie-card {
-    box-shadow: 0 5px 15px lightgrey;
-}
-
-.movie-card:hover {
-    box-shadow: 0 5px 30px lightgrey;
-}
-
 .page-nav {
     display: flex;
     justify-content: center;
@@ -186,19 +178,4 @@ body {
     color: white;
     transform: translate(0%, -250%);
     font-size: medium;
-}
-
-.movie-details {
-    top: 0.5rem;
-    border: none;
-}
-
-.movie-tooltip {
-    min-width: 360px;
-    max-width: 360px;
-    height: 270px;
-    background-color: white;
-    color: grey;
-    text-align: left;
-    border-radius: 10px;
 }

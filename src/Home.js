@@ -3,7 +3,6 @@ import 'url-search-params-polyfill';
 import Movie from "./components/Movie";
 import Loading from "./components/Loading";
 import firebase from "./config/firebaseConfig";
-import {Link} from "react-router-dom";
 
 
 const Home = () => {

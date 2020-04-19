@@ -9,13 +9,8 @@ const CreateMovie = ({ match }) => {
     const [redirect, setRedirect] = useState(false);
 
     useEffect(() => {
-        getData();
         submitData();
     }, []);
-
-    const getData = () => {
-        // Get movie data
-    };
 
     const submitData = () => {
         const title = document.getElementById("inputTitle");
@@ -118,10 +113,10 @@ const CreateMovie = ({ match }) => {
                                         </div>
                                         <div className="form-group row">
                                             <label htmlFor="inputImage"
-                                                   className="col-sm-2 col-form-label">Trailer</label>
+                                                   className="col-sm-2 col-form-label">Video trailer</label>
                                             <div className="col-sm-10">
                                                 <input type="url" className="input-box form-control" id="inputTrailer"
-                                                       placeholder="Video url" required/>
+                                                       placeholder="YouTube video url" required/>
                                             </div>
                                         </div>
                                         <div className="form-group row">

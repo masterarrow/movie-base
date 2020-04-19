@@ -47,8 +47,8 @@ function App() {
                 <Switch>
                     <Route path="/" exact component={Home}/>
                     <Route path="/movie/:slug" component={MovieDetails}/>
-                    <Route path="/new" render={() => (user.loggedIn === false) ? <Redirect to="/"/> : <CreateMovie/>}/>
-                    <Route path="/new/:slug" render={() => (user.loggedIn === false) ? <><Redirect to="/"/></> : <CreateMovie/>}/>
+                    <Route path="/new" exact render={() => (user.loggedIn === false) ? <Redirect to="/"/> : <CreateMovie/>}/>
+                    <Route path="/new/:slug" render={() => (user.loggedIn === false) ? <Redirect to="/"/> : <CreateMovie/>}/>
                     <Route path="/sign-in" render={() => user.loggedIn ? <Redirect to="/"/> : <SignIn/>}/>
                     <Route path="/sign-out" render={() => (user.loggedIn === false) ? <Redirect to="/"/> : <SignOut/>}/>
                     <Route path="*" component={Error404}/>
