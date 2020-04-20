@@ -3,26 +3,17 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { createStore } from "redux";
-import { Provider } from 'react-redux';
-import reducers from "./reducers/index";
+import { AuthProvider } from "./config/Auth";
 
-// Set a Redux storage
-const store = createStore(
-    reducers,
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-);
 
-// store.subscribe(() => console.log(store.getState()));
-
-// Connect application to the Redux storage
+// AuthProvider to authenticate user using Firebase
 ReactDOM.render(
-    <Provider store={store}>
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
-    </Provider>,
-  document.getElementById('root')
+    <React.StrictMode>
+        <AuthProvider>
+            <App />
+        </AuthProvider>
+    </React.StrictMode>,
+    document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change

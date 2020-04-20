@@ -1,21 +1,22 @@
-import React, { useCallback, useContext } from 'react';
+import React, { useCallback, useContext } from "react";
 import { Redirect } from "react-router";
 import { toast } from "react-toastify";
-import firebase from "./config/firebaseConfig";
 import { AuthContext } from "./config/Auth";
+import firebase from "./config/firebaseConfig";
 
 
-const SignIn = () => {
+const SignUp = () => {
     // Get user credentials
     const { currentUser } = useContext(AuthContext);
 
-    const handSignIn = useCallback(
+    const handSignUp = useCallback(
         async event => {
             event.preventDefault();
             const { email, password } = event.target.elements;
             // Sign using Firebase
             try {
-                await firebase.auth().signInWithEmailAndPassword(email.value, password.value);
+                await firebase.auth().createUserWithEmailAndPassword(email.value, password.value);
+                await firebase.auth().sendSignInLinkToEmail(email.value, firebase.auth.ActionCodeSettings);
             } catch (e) {
                   toast.error("Wrong username or password");
             }
@@ -37,9 +38,9 @@ const SignIn = () => {
                     <div className="col-md-7">
                         <div className="card">
                             <div className="card-body sing-in-card">
-                                <form id="sign-in-form" onSubmit={handSignIn}>
+                                <form id="sign-in-form" onSubmit={handSignUp}>
                                     <fieldset className="form-group">
-                                        <legend className="legend border-bottom mb-4">Sign In</legend>
+                                        <legend className="legend border-bottom mb-4">Sign Up</legend>
                                         <div className="text-box input-group mb-4">
                                             <div className="input-group-prepend">
                                                 <span className="input-group-text">
@@ -78,7 +79,7 @@ const SignIn = () => {
                 </div>
             </main>
         </>
-    );
+    )
 };
 
-export default SignIn;
+export default SignUp;

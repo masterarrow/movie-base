@@ -21,10 +21,10 @@ const Home = () => {
         // Get all movies from the Firebase
         const fetchData = async () => {
             const db = firebase.firestore();
-            const data = await db.collection("movies").get();
-            setMovies(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+            return await db.collection("movies").get();
         };
-        fetchData().then(() => {
+        fetchData().then(data => {
+            setMovies(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
             setLoading(false);
         });
     };

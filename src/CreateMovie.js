@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
 import firebase from "./config/firebaseConfig";
 import { toast } from "react-toastify";
-import { Redirect } from "react-router-dom";
+import { Redirect } from "react-router";
 
 
 const CreateMovie = ({ match }) => {
     // Redirect to a home page after adding a new movie
-    const [redirect, setRedirect] = useState(false);
+    const [redirect, setRedirect] = useState(null);
 
     useEffect(() => {
-        submitData();
-    }, []);
+        submitData(match.params.slug);
+    }, [match.params.slug]);
 
-    const submitData = () => {
+    const submitData = (movie_id) => {
         const title = document.getElementById("inputTitle");
         const genres = document.getElementById("inputGenres");
         const stars = document.getElementById("inputStars");
@@ -24,28 +24,71 @@ const CreateMovie = ({ match }) => {
         const release = document.getElementById("inputRelease");
         const description = document.getElementById("inputDescription");
 
+        if (movie_id) {
+            // Get movie data for editing
+            const fetchData = async () => {
+                const db = firebase.firestore();
+                return await db.collection("movies").doc(movie_id).get();
+            };
+            fetchData().then(data => {
+                const movie = { ...data.data(), id: movie_id };
+                title.value = movie.title;
+                genres.value = movie.genre.join(", ");
+                stars.value = movie.stars.join(", ");
+                countries.value = movie.countries.join(", ");
+                cover.value = movie.cover;
+                trailer.value= movie.trailer;
+                rating.value= movie.imdb_rating;
+                duration.value = movie.duration_min;
+                release.value = movie.release;
+                description.value = movie.description;
+            })
+        }
+
         const form = document.getElementById("new-movie-form");
 
         form.addEventListener("submit", (e) => {
-            // Save new movie
-            const fetchData = async () => {
-                const db = firebase.firestore();
-                await db.collection("movies").add({
-                    title: title.value,
-                    genre: genres.value.split(", "),
-                    stars: stars.value.split(", "),
-                    countries: countries.value.split(", "),
-                    cover: cover.value,
-                    trailer: trailer.value,
-                    imdb_rating: rating.value,
-                    duration_min: duration.value,
-                    release: release.value,
-                    description: description.value
-                });
-            };
-            fetchData().then(() => {
-                setRedirect(true);
-                toast.success("Movie has been successfully added");
+            let fetchData;
+            if (movie_id) {
+                // User edited an existing movie
+                fetchData = async () => {
+                    const db = firebase.firestore();
+                    return await db.collection("movies").doc(movie_id).set({
+                        title: title.value,
+                        genre: genres.value.split(", "),
+                        stars: stars.value.split(", "),
+                        countries: countries.value.split(", "),
+                        cover: cover.value,
+                        trailer: trailer.value,
+                        imdb_rating: rating.value,
+                        duration_min: duration.value,
+                        release: release.value,
+                        description: description.value
+                    });
+                };
+            } else {
+                // Save new movie
+                fetchData = async () => {
+                    const db = firebase.firestore();
+                    return await db.collection("movies").add({
+                        title: title.value,
+                        genre: genres.value.split(", "),
+                        stars: stars.value.split(", "),
+                        countries: countries.value.split(", "),
+                        cover: cover.value,
+                        trailer: trailer.value,
+                        imdb_rating: rating.value,
+                        duration_min: duration.value,
+                        release: release.value,
+                        description: description.value
+                    });
+                };
+            }
+            fetchData().then(data => {
+                // Get movie id
+                const id = movie_id ? movie_id : data.um.path.segments[1];
+                // Redirect to a movie details page
+                setRedirect(`/movie/${id}`);
             }).catch(error => {
                 toast.error("Something went wrong! Please try again later");
             });
@@ -57,7 +100,7 @@ const CreateMovie = ({ match }) => {
     const renderRedirect = () => {
         // If user add a new movie, go to the Home Page
         if (redirect) {
-            return <Redirect to="/"/>
+            return <Redirect to={redirect}/>
         }
     };
 

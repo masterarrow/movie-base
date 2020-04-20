@@ -1,17 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { Redirect, Link } from "react-router-dom";
-import { useSelector } from 'react-redux';
+import React, { useState, useEffect, useContext } from "react";
+import { Redirect } from "react-router";
+import { Link } from "react-router-dom";
 import Moment from "moment";
 import Movie from "./components/Movie";
 import firebase from "./config/firebaseConfig";
+import { AuthContext } from "./config/Auth";
 import "./MovieDetails.css"
 
 
 const MovieDetails = ({ match }) => {
-    // Get user credentials from the Redux storage
-    const user = useSelector(state => state.credentials);
-    // const user = useSelector(state => state.credentials);
-    const [item, setItem] = useState([]);
+    // Get user credentials
+    const { currentUser } = useContext(AuthContext);
+    // Movie data
+    const [item, setItem] = useState({});
     // No redirect to the Home Page by default
     const [redirect, setRedirect] = useState(false);
 
@@ -23,7 +24,9 @@ const MovieDetails = ({ match }) => {
         // Get movie data
         const fetchData = async () => {
             const db = firebase.firestore();
-            const data = await db.collection("movies").doc(id).get();
+            return  await db.collection("movies").doc(id).get();
+        };
+        fetchData().then(data => {
             let movie = { ...data.data(), id: id };
             // Get movie link for youtube player
             const arr = movie.trailer.split("/");
@@ -35,13 +38,12 @@ const MovieDetails = ({ match }) => {
             // Movie countries
             movie.countries = movie.countries.join(", ");
             setItem(movie);
-        };
-        fetchData().then(r => r);
+        });
     };
 
     const renderRedirect = () => {
         // Redirect user
-        if(redirect) {
+        if (redirect) {
             return <Redirect to="/"/>
         }
     };
@@ -54,9 +56,8 @@ const MovieDetails = ({ match }) => {
     };
 
     let delButton, editButton;
-    if (user.loggedIn) {
+    if (currentUser) {
         // Visible only to a logged in users
-        // Delete and edit book can only user who created it
         delButton = (
             <button onClick={deleteMovie} className="btn card-link text-danger">Delete</button>
         );

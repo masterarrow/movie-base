@@ -1,56 +1,37 @@
-import React, { useEffect } from 'react';
+import React, { useContext } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Redirect } from "react-router-dom"
-import { useSelector, useDispatch } from 'react-redux';
+import { Redirect } from "react-router";
 import './App.css';
-import { LoadState } from "./reducers/LoadState"
-import { setCredentials } from "./actions";
+import { AuthContext } from "./config/Auth";
+import PrivateRoute from "./components/PrivateRoute";
 import NavBar from "./components/NavBar";
 import Home from "./Home";
-import Error404 from "./Error404";
-import SignOut from "./SignOut";
-import SignIn from "./SignIn";
-import CreateMovie from "./CreateMovie";
 import MovieDetails from "./MovieDetails";
+import CreateMovie from "./CreateMovie";
+import SignIn from "./SignIn";
+// import SignUp from "./SignUp";
+import SignOut from "./SignOut";
+import Error404 from "./Error404";
+
 
 function App() {
-    let user = useSelector(state => state.credentials);
-    const dispatch = useDispatch();
-
-    // Configure toast notifications
-    toast.configure({
-        autoClose: 5000,
-        pauseOnFocusLoss: false
-    });
-
-    // const data = "";
-    useEffect(() => checkCredentials(), []);
-
-    const checkCredentials = () => {
-        let credentials = LoadState();
-
-        if(credentials && credentials.loggedIn) {
-            // Save renewed data to the Redux and local storage
-            user = credentials;
-            dispatch(setCredentials(credentials));
-        }
-    };
+    // Get user credentials
+    const { currentUser } = useContext(AuthContext);
 
     return (
         <Router component={App}>
-            {checkCredentials}
             <div className="App">
               <NavBar/>
                 <Switch>
                     <Route path="/" exact component={Home}/>
                     <Route path="/movie/:slug" component={MovieDetails}/>
-                    <Route path="/new" exact render={() => (user.loggedIn === false) ? <Redirect to="/"/> : <CreateMovie/>}/>
-                    <Route path="/new/:slug" render={() => (user.loggedIn === false) ? <Redirect to="/"/> : <CreateMovie/>}/>
-                    <Route path="/sign-in" render={() => user.loggedIn ? <Redirect to="/"/> : <SignIn/>}/>
-                    <Route path="/sign-out" render={() => (user.loggedIn === false) ? <Redirect to="/"/> : <SignOut/>}/>
+                    <PrivateRoute path="/new" exact component={CreateMovie}/>
+                    <PrivateRoute path="/new/:slug" exact component={CreateMovie}/>
+                    <Route path="/sign-in" render={() => currentUser ? <Redirect to="/"/> : <SignIn/>}/>
+                    {/*<Route path="/sign-up" render={() => currentUser ? <Redirect to="/"/> : <SignUp/>}/>*/}
+                    <Route path="/sign-out" render={() => (currentUser === false) ? <Redirect to="/"/> : <SignOut/>}/>
                     <Route path="*" component={Error404}/>
                 </Switch>
             </div>

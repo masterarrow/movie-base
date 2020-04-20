@@ -1,28 +1,26 @@
-import React, {useState} from 'react';
-import { Redirect } from "react-router-dom"
+import React, { useContext } from 'react';
+import { Redirect } from "react-router";
 import { toast } from "react-toastify";
-import { useDispatch, useSelector } from 'react-redux';
-import { SaveState } from "./reducers/LoadState";
-import { eraseCredentials } from './actions/index'
+import firebase from "./config/firebaseConfig";
+import { AuthContext } from "./config/Auth";
 
 
 const SignOut = () => {
-    const user = useSelector(state => state.credentials);
-    const [loggedIn, setLoggedIn] = useState(user.loggedIn);
-    const dispatch = useDispatch();
+    // Get user credentials
+    const { currentUser } = useContext(AuthContext);
 
-    const signOut = () => {
-        // Delete user credentials from the Redux storage wen hi logged out
-        dispatch(eraseCredentials());
-        // Save data to te local storage
-        SaveState(null);
-        setLoggedIn(false);
-        toast.success("You have been logged out!");
+    const signOut = async () => {
+        // Sign out using Firebase
+        try {
+            await firebase.auth().signOut();
+        } catch (e) {
+            toast.success("Something went wrong! Please try again later");
+        }
     };
 
     const renderRedirect = () => {
-        // If user already logged in, go to the Home Page
-        if(!loggedIn) {
+        // If user already signed in, go to the Home Page
+        if(!currentUser) {
             return <Redirect to="/"/>
         }
     };

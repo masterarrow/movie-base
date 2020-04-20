@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink, Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { AuthContext } from "../config/Auth";
 
 
 const NavBar = () => {
-    // Get user credentials from the Redux storage
-    const user = useSelector(state => state.credentials);
+    // Get user credentials
+    const { currentUser } = useContext(AuthContext);
 
     const mainLink = {
         color: "white",
@@ -17,7 +17,7 @@ const NavBar = () => {
     };
 
     let menu;
-    if(user.loggedIn) {
+    if(currentUser) {
         // Visible only to a signed in users
         menu = (
             <>
@@ -29,7 +29,11 @@ const NavBar = () => {
     } else  {
         // Visible to a not signed in users
         menu = (
-            <Link to="/sign-in" className="dropdown-item">Sign In</Link>
+            <>
+                <Link to="/sign-in" className="dropdown-item">Sign In</Link>
+                <div className="dropdown-divider"/>
+                <Link to="/sign-up" className="dropdown-item">Sign Up</Link>
+            </>
         )
     }
 
