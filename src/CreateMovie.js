@@ -198,7 +198,7 @@ const CreateMovie = ({ match }) => {
                                         </div>
                                         <button type="reset" onClick={() => window.history.back()}
                                                 className="btn btn-outline-danger float-left">Cancel</button>
-                                        <button type="submit" className="btn btn-outline-success float-right">Add movie</button>
+                                        <button type="submit" className="btn btn-outline-success float-right">Save</button>
                                     </fieldset>
                                 </form>
                             </div>
