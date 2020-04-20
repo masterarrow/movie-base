@@ -62,18 +62,19 @@ const MovieDetails = ({ match }) => {
         }
     };
 
-    let delButton, editButton;
-    if (currentUser && currentUser.emailVerified) {
-        // Visible only to a logged in users
-        delButton = (
-            <button onClick={deleteMovie} className="btn card-link text-danger">Delete</button>
-        );
-        editButton = (
-            <Link to={`/new/${item.id}`}>
-                <button className="btn card-link text-success">Edit</button>
-            </Link>
-        );
-    }
+    const buttons = () => {
+        if (currentUser && currentUser.emailVerified && currentUser.uid === item.user) {
+            // Visible only to a logged in user who added this movie
+            return (
+                <>
+                    <button onClick={deleteMovie} className="btn card-link text-danger">Delete</button>
+                    <Link to={`/new/${item.id}`}>
+                        <button className="btn card-link text-success">Edit</button>
+                    </Link>
+                </>
+            );
+        }
+    };
 
     return (
         <>
@@ -81,8 +82,7 @@ const MovieDetails = ({ match }) => {
             <div className="movie-details card ml-5 mt-2">
                 <div className="row">
                     <h3 className="detail-movie-title">{item.title}</h3>
-                    {editButton}
-                    {delButton}
+                    {buttons()}
                 </div>
                 <iframe title={item.id} width="1244" height="700" src={item.trailer} frameBorder="0"
                         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
