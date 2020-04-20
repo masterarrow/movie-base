@@ -67,10 +67,10 @@ const MovieDetails = ({ match }) => {
             // Visible only to a logged in user who added this movie
             return (
                 <>
-                    <button onClick={deleteMovie} className="btn card-link text-danger">Delete</button>
                     <Link to={`/new/${item.id}`}>
                         <button className="btn card-link text-success">Edit</button>
                     </Link>
+                    <button onClick={deleteMovie} className="btn card-link text-danger">Delete</button>
                 </>
             );
         }

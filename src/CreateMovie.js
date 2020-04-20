@@ -63,7 +63,8 @@ const CreateMovie = ({ match }) => {
                         imdb_rating: rating.value,
                         duration_min: duration.value,
                         release: release.value,
-                        description: description.value
+                        description: description.value,
+                        user: firebase.auth().currentUser.uid
                     });
                 };
             } else {
@@ -80,7 +81,8 @@ const CreateMovie = ({ match }) => {
                         imdb_rating: rating.value,
                         duration_min: duration.value,
                         release: release.value,
-                        description: description.value
+                        description: description.value,
+                        user: firebase.auth().currentUser.uid
                     });
                 };
             }
@@ -115,7 +117,7 @@ const CreateMovie = ({ match }) => {
                             <div className="card-body new-movie-card">
                                 <form id="new-movie-form">
                                     <fieldset className="form-group">
-                                        <legend className="border-bottom mb-3">{match ? "Edit Movie" : "New Movie"}</legend>
+                                        <legend className="border-bottom mb-3">{match.params.slug ? "Edit Movie" : "New Movie"}</legend>
                                         <div className="form-group row">
                                             <label htmlFor="inputTitle" className="col-sm-2 col-form-label">Title</label>
                                             <div className="col-sm-10">
