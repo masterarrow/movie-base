@@ -16,23 +16,32 @@ const NavBar = () => {
         color: "white"
     };
 
-    let menu;
-    if(currentUser) {
+    let menu, information;
+    if (currentUser) {
         // Visible only to a signed in users
-        menu = (
-            <>
-                <Link to="/new" className="dropdown-item">Add Movie</Link>
-                <div className="dropdown-divider"/>
+        if (currentUser.emailVerified) {
+            menu = (
+                <>
+                    <Link to="/new" className="dropdown-item">Add Movie</Link>
+                    <div className="dropdown-divider"/>
+                    <Link to="/sign-out" className="dropdown-item">Sign Out</Link>
+                </>
+            );
+        } else {
+            menu = (
                 <Link to="/sign-out" className="dropdown-item">Sign Out</Link>
-            </>
-        );
+            );
+            information = (
+                <NavLink className="nav-link text-warning" to="/information" style={linkStyle}>Information</NavLink>
+            )
+        }
     } else  {
         // Visible to a not signed in users
         menu = (
             <>
                 <Link to="/sign-in" className="dropdown-item">Sign In</Link>
-                {/*<div className="dropdown-divider"/>
-                <Link to="/sign-up" className="dropdown-item">Sign Up</Link>*/}
+                <div className="dropdown-divider"/>
+                <Link to="/sign-up" className="dropdown-item">Sign Up</Link>
             </>
         )
     }
@@ -60,6 +69,7 @@ const NavBar = () => {
                             {menu}
                         </div>
                     </li>
+                    {information}
                 </ul>
                 <form id="search-form" className="form-inline my-2 my-lg-0">
                     <input className="search form-control mr-sm-2" id="search" type="search" placeholder="Search" aria-label="Search"/>

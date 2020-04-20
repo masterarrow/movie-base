@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect } from "react";
 import 'url-search-params-polyfill';
 import Movie from "./components/Movie";
 import Loading from "./components/Loading";

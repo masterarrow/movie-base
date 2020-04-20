@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Redirect } from "react-router";
 import { Link } from "react-router-dom";
+import {toast} from "react-toastify";
 import Moment from "moment";
 import Movie from "./components/Movie";
 import firebase from "./config/firebaseConfig";
@@ -48,15 +49,21 @@ const MovieDetails = ({ match }) => {
         }
     };
 
-    const deleteMovie = async () => {
+    const deleteMovie = () => {
         // Delete movie
-        const db = firebase.firestore();
-        await db.collection("movies").doc(item.id).delete();
-        setRedirect(true);
+        if (window.confirm("Are you sure you want to delete this movie?")) {
+            const db = firebase.firestore();
+            db.collection("movies").doc(item.id).delete().then(() => {
+                toast.info("Movie has been successfully deleted");
+                setRedirect(true);
+            }).catch((e) =>
+                toast.error("Something went wrong! Please try again later")
+            );
+        }
     };
 
     let delButton, editButton;
-    if (currentUser) {
+    if (currentUser && currentUser.emailVerified) {
         // Visible only to a logged in users
         delButton = (
             <button onClick={deleteMovie} className="btn card-link text-danger">Delete</button>

@@ -89,6 +89,7 @@ const CreateMovie = ({ match }) => {
                 const id = movie_id ? movie_id : data.um.path.segments[1];
                 // Redirect to a movie details page
                 setRedirect(`/movie/${id}`);
+                toast.success("Movie has been successfully saved!");
             }).catch(error => {
                 toast.error("Something went wrong! Please try again later");
             });

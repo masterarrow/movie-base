@@ -9,12 +9,16 @@ const SignOut = () => {
     // Get user credentials
     const { currentUser } = useContext(AuthContext);
 
-    const signOut = async () => {
+    const signOut = () => {
         // Sign out using Firebase
         try {
-            await firebase.auth().signOut();
+            firebase.auth().signOut().then(() => {
+                toast.info("You have ben successfully signed out!")
+            }).catch((e) =>
+                toast.error("Something went wrong! Please try again later")
+            );
         } catch (e) {
-            toast.success("Something went wrong! Please try again later");
+            toast.error("Something went wrong! Please try again later");
         }
     };
 
