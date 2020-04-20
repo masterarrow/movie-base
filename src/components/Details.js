@@ -14,7 +14,7 @@ const Details = ({ movie }) => {
     return (
         <>
             <div className="row">
-                <h6 className="title ml-4 mt-1">{movie.title}</h6>
+                <h6 className="title ml-4 mt-1">{clipText(movie.title, 22)}</h6>
                 <h5 className="mt-2 ml-3" style={{color: "lightgrey"}}>
                     {Moment(movie.release).format("YYYY")}
                 </h5>

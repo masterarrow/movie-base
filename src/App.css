@@ -175,7 +175,8 @@ body {
 }
 
 .movie-title {
-    color: white;
-    transform: translate(0%, -250%);
+    color: wheat;
+    font-weight: bold;
+    transform: translate(0%, -100%);
     font-size: medium;
 }
