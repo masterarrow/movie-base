@@ -31,8 +31,8 @@ const NavBar = () => {
         menu = (
             <>
                 <Link to="/sign-in" className="dropdown-item">Sign In</Link>
-                <div className="dropdown-divider"/>
-                <Link to="/sign-up" className="dropdown-item">Sign Up</Link>
+                {/*<div className="dropdown-divider"/>
+                <Link to="/sign-up" className="dropdown-item">Sign Up</Link>*/}
             </>
         )
     }

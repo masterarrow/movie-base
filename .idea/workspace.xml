@@ -1,35 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9ddbb871-216d-4378-af22-ec2b4ff01297" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CreateMovie.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Error404.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Home.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/MovieDetails.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/SignIn.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/SignOut.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/actions/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Loading.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Movie.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/NavBar.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Pagination.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/config/firebaseConfig.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pict/ripped.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/reducers/LoadState.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/reducers/index.js" afterDir="false" />
+    <list default="true" id="9ddbb871-216d-4378-af22-ec2b4ff01297" name="Default Changelist" comment="Home page finished">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/favicon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/logo192.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/logo512.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/logo.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/NavBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NavBar.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,6 +13,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="CSS File" />
         <option value="JavaScript File" />
       </list>
     </option>
@@ -58,6 +33,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/reducers" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -87,9 +63,22 @@
         <script value="start" />
       </scripts>
       <node-interpreter value="project" />
-      <envs />
+      <envs>
+        <env name="API_KEY" value="AIzaSyAj3vRd3wYP8rgpJUeWFqYBdO8cVmsjIWU" />
+        <env name="AUTH_DOMAIN" value="movie-dbase.firebaseapp.com" />
+        <env name="DATABASE_URL" value="https://movie-dbase.firebaseio.com" />
+        <env name="PROJECT_ID" value="movie-dbase" />
+        <env name="STORAGE_BUCKET" value="movie-dbase.appspot.com" />
+        <env name="MESSAGING_SENDER_ID" value="623065281210" />
+        <env name="APP_ID" value="1:623065281210:web:24a36714b099cb5a5c8883" />
+        <env name="MEASUREMENT_ID" value="G-7N4JHFVM8H" />
+      </envs>
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="JavaScript Debug.Debug Application" />
+      <item itemvalue="npm.npm start" />
+    </list>
   </component>
   <component name="ServiceViewManager">
     <option name="viewStates">
@@ -113,45 +102,148 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1587200328377</updated>
-      <workItem from="1587200330927" duration="32768000" />
+      <workItem from="1587200330927" duration="33007000" />
+      <workItem from="1587286293690" duration="35637000" />
+      <workItem from="1587367568037" duration="16723000" />
     </task>
+    <task id="LOCAL-00001" summary="Private movie database">
+      <created>1587238565409</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1587238565409</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Home page finished">
+      <created>1587307065621</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1587307065621</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Home page finished">
+      <created>1587309571694</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1587309571694</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Home page finished">
+      <created>1587309642457</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1587309642458</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Details page added">
+      <created>1587324519784</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1587324519784</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Ignore file">
+      <created>1587324663145</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1587324663145</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Ignore file">
+      <created>1587368168569</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1587368168569</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Secure data">
+      <created>1587368987599</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1587368987599</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Secure env">
+      <created>1587372361948</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1587372361948</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Completed app">
+      <created>1587386322405</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1587386322405</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Private movie database" />
+    <MESSAGE value="Home page finished" />
+    <MESSAGE value="Details page added" />
+    <MESSAGE value="Ignore file" />
+    <MESSAGE value="Secure data" />
+    <MESSAGE value="Secure env" />
+    <MESSAGE value="Completed app" />
+    <option name="LAST_COMMIT_MESSAGE" value="Completed app" />
+  </component>
   <component name="WindowStateProjectService">
+    <state x="158" y="210" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1587370410586">
+      <screen x="0" y="26" width="1920" height="1054" />
+    </state>
+    <state x="158" y="210" key="#com.intellij.execution.impl.EditConfigurationsDialog/1920.0.1920.1080/0.26.1920.1054@0.26.1920.1054" timestamp="1587370410586" />
     <state x="433" y="299" width="524" height="512" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1587226902907">
       <screen x="0" y="26" width="1920" height="1054" />
     </state>
     <state x="433" y="299" width="524" height="512" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/1920.0.1920.1080/0.26.1920.1054@0.26.1920.1054" timestamp="1587226902907" />
+    <state x="259" y="118" width="871" height="875" key="CommitChangelistDialog2" timestamp="1587386322228">
+      <screen x="0" y="26" width="1920" height="1054" />
+    </state>
+    <state x="259" y="118" width="871" height="875" key="CommitChangelistDialog2/1920.0.1920.1080/0.26.1920.1054@0.26.1920.1054" timestamp="1587386322228" />
+    <state x="437" y="303" width="515" height="505" key="EnvironmentVariablesDialog" timestamp="1587370408189">
+      <screen x="0" y="26" width="1920" height="1054" />
+    </state>
+    <state x="437" y="303" width="515" height="505" key="EnvironmentVariablesDialog/1920.0.1920.1080/0.26.1920.1054@0.26.1920.1054" timestamp="1587370408189" />
     <state x="391" y="444" width="542" height="237" key="Github.ShareDialog" timestamp="1587238510529">
       <screen x="0" y="26" width="1920" height="1054" />
     </state>
     <state x="391" y="444" width="542" height="237" key="Github.ShareDialog/1920.0.1920.1080/0.26.1920.1054@0.26.1920.1054" timestamp="1587238510529" />
-    <state width="1348" height="240" key="GridCell.Tab.0.bottom" timestamp="1587235039559">
+    <state width="1348" height="240" key="GridCell.Tab.0.bottom" timestamp="1587374073055">
       <screen x="0" y="26" width="1920" height="1054" />
     </state>
-    <state width="1348" height="240" key="GridCell.Tab.0.bottom/1920.0.1920.1080/0.26.1920.1054@0.26.1920.1054" timestamp="1587235039559" />
-    <state width="1348" height="240" key="GridCell.Tab.0.center" timestamp="1587235039559">
+    <state width="1348" height="240" key="GridCell.Tab.0.bottom/1920.0.1920.1080/0.26.1920.1054@0.26.1920.1054" timestamp="1587374073055" />
+    <state width="1348" height="240" key="GridCell.Tab.0.center" timestamp="1587374073055">
       <screen x="0" y="26" width="1920" height="1054" />
     </state>
-    <state width="1348" height="240" key="GridCell.Tab.0.center/1920.0.1920.1080/0.26.1920.1054@0.26.1920.1054" timestamp="1587235039559" />
-    <state width="1348" height="240" key="GridCell.Tab.0.left" timestamp="1587235039559">
+    <state width="1348" height="240" key="GridCell.Tab.0.center/1920.0.1920.1080/0.26.1920.1054@0.26.1920.1054" timestamp="1587374073055" />
+    <state width="1348" height="240" key="GridCell.Tab.0.left" timestamp="1587374073055">
       <screen x="0" y="26" width="1920" height="1054" />
     </state>
-    <state width="1348" height="240" key="GridCell.Tab.0.left/1920.0.1920.1080/0.26.1920.1054@0.26.1920.1054" timestamp="1587235039558" />
-    <state width="1348" height="240" key="GridCell.Tab.0.right" timestamp="1587235039559">
+    <state width="1348" height="240" key="GridCell.Tab.0.left/1920.0.1920.1080/0.26.1920.1054@0.26.1920.1054" timestamp="1587374073055" />
+    <state width="1348" height="240" key="GridCell.Tab.0.right" timestamp="1587374073055">
       <screen x="0" y="26" width="1920" height="1054" />
     </state>
-    <state width="1348" height="240" key="GridCell.Tab.0.right/1920.0.1920.1080/0.26.1920.1054@0.26.1920.1054" timestamp="1587235039559" />
+    <state width="1348" height="240" key="GridCell.Tab.0.right/1920.0.1920.1080/0.26.1920.1054@0.26.1920.1054" timestamp="1587374073055" />
+    <state x="500" y="262" width="390" height="587" key="RollbackChangesDialog" timestamp="1587368199118">
+      <screen x="0" y="26" width="1920" height="1054" />
+    </state>
+    <state x="500" y="262" width="390" height="587" key="RollbackChangesDialog/1920.0.1920.1080/0.26.1920.1054@0.26.1920.1054" timestamp="1587368199118" />
     <state x="189" y="187" width="1022" height="737" key="SettingsEditor" timestamp="1587238272586">
       <screen x="0" y="26" width="1920" height="1054" />
     </state>
     <state x="189" y="187" width="1022" height="737" key="SettingsEditor/1920.0.1920.1080/0.26.1920.1054@0.26.1920.1054" timestamp="1587238272586" />
-    <state x="363" y="258" width="672" height="678" key="search.everywhere.popup" timestamp="1587207602719">
+    <state x="295" y="286" width="800" height="536" key="Vcs.Push.Dialog.v2" timestamp="1587386326116">
       <screen x="0" y="26" width="1920" height="1054" />
     </state>
-    <state x="363" y="258" width="672" height="678" key="search.everywhere.popup/1920.0.1920.1080/0.26.1920.1054@0.26.1920.1054" timestamp="1587207602719" />
+    <state x="295" y="286" width="800" height="536" key="Vcs.Push.Dialog.v2/1920.0.1920.1080/0.26.1920.1054@0.26.1920.1054" timestamp="1587386326116" />
+    <state x="363" y="258" width="672" height="678" key="search.everywhere.popup" timestamp="1587317145636">
+      <screen x="0" y="26" width="1920" height="1054" />
+    </state>
+    <state x="363" y="258" width="672" height="678" key="search.everywhere.popup/1920.0.1920.1080/0.26.1920.1054@0.26.1920.1054" timestamp="1587317145636" />
   </component>
 </project>
