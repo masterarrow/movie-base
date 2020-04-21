@@ -54,16 +54,16 @@ const CreateMovie = ({ match }) => {
                 fetchData = async () => {
                     const db = firebase.firestore();
                     return await db.collection("movies").doc(movie_id).set({
-                        title: title.value,
-                        genre: genres.value.split(", "),
-                        stars: stars.value.split(", "),
-                        countries: countries.value.split(", "),
-                        cover: cover.value,
-                        trailer: trailer.value,
+                        title: title.value.trim(),
+                        genre: genres.value.trim().split(", "),
+                        stars: stars.value.trim().split(", "),
+                        countries: countries.value.trim().split(", "),
+                        cover: cover.value.trim(),
+                        trailer: trailer.value.trim(),
                         imdb_rating: rating.value,
                         duration_min: duration.value,
                         release: release.value,
-                        description: description.value,
+                        description: description.value.trim(),
                         user: firebase.auth().currentUser.uid
                     });
                 };
@@ -72,16 +72,16 @@ const CreateMovie = ({ match }) => {
                 fetchData = async () => {
                     const db = firebase.firestore();
                     return await db.collection("movies").add({
-                        title: title.value,
-                        genre: genres.value.split(", "),
-                        stars: stars.value.split(", "),
-                        countries: countries.value.split(", "),
-                        cover: cover.value,
-                        trailer: trailer.value,
+                        title: title.value.trim(),
+                        genre: genres.value.trim().split(", "),
+                        stars: stars.value.trim().split(", "),
+                        countries: countries.value.trim().split(", "),
+                        cover: cover.value.trim(),
+                        trailer: trailer.value.trim(),
                         imdb_rating: rating.value,
                         duration_min: duration.value,
                         release: release.value,
-                        description: description.value,
+                        description: description.value.trim(),
                         user: firebase.auth().currentUser.uid
                     });
                 };
