@@ -16,6 +16,9 @@
     justify-content: center;
     font-size: calc(10px + 2vmin);
     color: white;
+    max-width: 115rem;
+    margin-left: 3.0rem;
+    margin-right: auto
 }
 
 .navbar {
