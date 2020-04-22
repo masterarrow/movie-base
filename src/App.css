@@ -183,3 +183,7 @@ body {
     transform: translate(0%, -100%);
     font-size: medium;
 }
+
+.col-form-label {
+    font-size: medium;
+}

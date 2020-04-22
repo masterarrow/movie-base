@@ -2,75 +2,101 @@ import React, { useState, useEffect } from "react";
 import firebase from "./config/firebaseConfig";
 import { toast } from "react-toastify";
 import { Redirect } from "react-router";
-import { useForm } from "react-hook-form";
 
 
 const CreateMovie = ({ match }) => {
     // Redirect to a home page after adding a new movie
     const [redirect, setRedirect] = useState(null);
-    const [defaultValues, setDefaultValues] = useState({});
-    const { register, handleSubmit } = useForm();
 
     useEffect(() => {
-        // submitData(match.params.slug);
-        populateValues();
-    }, []);
+        submitData(match.params.slug);
+    }, [match.params.slug]);
 
-    const populateValues = () => {
-        // Get movie data
-        const fetchData = async () => {
-            const db = firebase.firestore();
-            return await db.collection("movies").doc(match.params.slug).get();
-        };
-        fetchData().then(data => {
-            const movie = { ...data.data(), id: match.params.slug };
-            setDefaultValues({
-                ...movie,
-                genre: movie.genre.join(", "),
-                stars: movie.stars.join(", "),
-                countries: movie.countries.join(", ")
-            });
-        });
-    };
+    const submitData = (movie_id) => {
+        const title = document.getElementById("inputTitle");
+        const genres = document.getElementById("inputGenres");
+        const stars = document.getElementById("inputStars");
+        const countries = document.getElementById("inputCountries");
+        const cover = document.getElementById("inputCover");
+        const trailer = document.getElementById("inputTrailer");
+        const rating = document.getElementById("inputRating");
+        const duration = document.getElementById("inputDuration");
+        const release = document.getElementById("inputRelease");
+        const description = document.getElementById("inputDescription");
 
-    const onSubmit = (data) => {
-        // Form submit
-        const db = firebase.firestore();
-        const fetchData = async () => {
-            if (match.params.slug) {
+        if (movie_id) {
+            // Get movie data for editing
+            const fetchData = async () => {
+                const db = firebase.firestore();
+                return await db.collection("movies").doc(movie_id).get();
+            };
+            fetchData().then(data => {
+                const movie = { ...data.data(), id: movie_id };
+                title.value = movie.title;
+                genres.value = movie.genre.join(", ");
+                stars.value = movie.stars.join(", ");
+                countries.value = movie.countries.join(", ");
+                cover.value = movie.cover;
+                trailer.value= movie.trailer;
+                rating.value= movie.imdb_rating;
+                duration.value = movie.duration_min;
+                release.value = movie.release;
+                description.value = movie.description;
+            })
+        }
+
+        const form = document.getElementById("new-movie-form");
+
+        form.addEventListener("submit", (e) => {
+            let fetchData;
+            if (movie_id) {
                 // User edited an existing movie
-                Object.keys(data).forEach(function(key) {
-                    // trim each value in data
-                    this[key] = this[key].trim();
-                }, data);
-                return await db.collection("movies").doc(match.params.slug).set({
-                    ...data,
-                    genre: data.genre.trim().split(", "),
-                    stars: data.stars.trim().split(", "),
-                    countries: data.countries.trim().split(", "),
-                    user: firebase.auth().currentUser.uid
-                });
+                fetchData = async () => {
+                    const db = firebase.firestore();
+                    return await db.collection("movies").doc(movie_id).set({
+                        title: title.value.trim(),
+                        genre: genres.value.trim().split(", "),
+                        stars: stars.value.trim().split(", "),
+                        countries: countries.value.trim().split(", "),
+                        cover: cover.value.trim(),
+                        trailer: trailer.value.trim(),
+                        imdb_rating: rating.value,
+                        duration_min: duration.value,
+                        release: release.value,
+                        description: description.value.trim(),
+                        user: firebase.auth().currentUser.uid
+                    });
+                };
             } else {
                 // Save new movie
-                return await db.collection("movies").add({
-                    ...data,
-                    genre: data.genre.trim().split(", "),
-                    stars: data.stars.trim().split(", "),
-                    countries: data.countries.trim().split(", "),
-                    user: firebase.auth().currentUser.uid
-                });
+                fetchData = async () => {
+                    const db = firebase.firestore();
+                    return await db.collection("movies").add({
+                        title: title.value.trim(),
+                        genre: genres.value.trim().split(", "),
+                        stars: stars.value.trim().split(", "),
+                        countries: countries.value.trim().split(", "),
+                        cover: cover.value.trim(),
+                        trailer: trailer.value.trim(),
+                        imdb_rating: rating.value,
+                        duration_min: duration.value,
+                        release: release.value,
+                        description: description.value.trim(),
+                        user: firebase.auth().currentUser.uid
+                    });
+                };
             }
-        };
-
-        fetchData().then(data => {
-            // Get movie id
-            const id = match.params.slug ? match.params.slug : data.um.path.segments[1];
-            // Redirect to a movie details page
-            setRedirect(`/movie/${id}`);
-            toast.success("Movie has been successfully saved!");
-        }).catch(error => {
-            console.log("ERROR:", error);
-            toast.error("Something went wrong! Please try again later");
+            fetchData().then(data => {
+                // Get movie id
+                const id = movie_id ? movie_id : data.um.path.segments[1];
+                // Redirect to a movie details page
+                setRedirect(`/movie/${id}`);
+                toast.success("Movie has been successfully saved!");
+            }).catch(error => {
+                toast.error("Something went wrong! Please try again later");
+            });
+            // Prevent default page refresh on submit
+            e.preventDefault();
         });
     };
 
@@ -89,39 +115,37 @@ const CreateMovie = ({ match }) => {
                     <div className="col-md-11">
                         <div className="card">
                             <div className="card-body new-movie-card">
-                                <form id="new-movie-form" onSubmit={handleSubmit(onSubmit)}>
+                                <form id="new-movie-form">
                                     <fieldset className="form-group">
                                         <legend className="border-bottom mb-3">{match.params.slug ? "Edit Movie" : "New Movie"}</legend>
                                         <div className="form-group row">
                                             <label htmlFor="inputTitle" className="col-sm-2 col-form-label">Title</label>
                                             <div className="col-sm-10">
-                                                <input type="text" className="input-box form-control" name="title" id="inputTitle"
-                                                       ref={register} defaultValue={defaultValues.title} placeholder="Title" required/>
+                                                <input type="text" className="input-box form-control" id="inputTitle"
+                                                       placeholder="Title" required/>
                                             </div>
                                         </div>
                                         <div className="form-group row">
                                             <label htmlFor="inputAuthor"
                                                    className="col-sm-2 col-form-label">Genres</label>
                                             <div className="col-sm-10">
-                                                <input type="text" className="input-box form-control" name="genre" id="inputAuthor"
-                                                       ref={register} defaultValue={defaultValues.genre}
-                                                       placeholder="Action, Sci-Fi, ..." required/>
+                                                <input type="text" className="input-box form-control" id="inputGenres"
+                                                       placeholder="Action, Sci-Fi, ..."/>
                                             </div>
                                         </div>
                                         <div className="form-group row">
                                             <label htmlFor="inputAuthor"
                                                    className="col-sm-2 col-form-label">Stars</label>
                                             <div className="col-sm-10">
-                                                <input type="text" className="input-box form-control" name="stars" id="inputAuthor"
-                                                       ref={register} defaultValue={defaultValues.stars} placeholder="Star, ..." required/>
+                                                <input type="text" className="input-box form-control" id="inputStars"
+                                                       placeholder="Star, ..."/>
                                             </div>
                                         </div>
                                         <div className="form-group row">
                                             <label htmlFor="inputAuthor"
                                                    className="col-sm-2 col-form-label">Countries</label>
                                             <div className="col-sm-10">
-                                                <input type="text" className="input-box form-control" name="countries" id="inputAuthor"
-                                                       ref={register({required: true})} defaultValue={defaultValues.countries}
+                                                <input type="text" className="input-box form-control" id="inputCountries"
                                                        placeholder="Country, ..."/>
                                             </div>
                                         </div>
@@ -129,16 +153,15 @@ const CreateMovie = ({ match }) => {
                                             <label htmlFor="inputImage"
                                                    className="col-sm-2 col-form-label">Movie cover</label>
                                             <div className="col-sm-10">
-                                                <input type="url" className="input-box form-control" name="cover" id="inputImage"
-                                                       ref={register} defaultValue={defaultValues.cover} placeholder="Image url" required/>
+                                                <input type="url" className="input-box form-control" id="inputCover"
+                                                       placeholder="Image url" required/>
                                             </div>
                                         </div>
                                         <div className="form-group row">
                                             <label htmlFor="inputImage"
                                                    className="col-sm-2 col-form-label">Video trailer</label>
                                             <div className="col-sm-10">
-                                                <input type="url" className="input-box form-control" name="trailer"
-                                                       ref={register} defaultValue={defaultValues.trailer} id="inputImage"
+                                                <input type="url" className="input-box form-control" id="inputTrailer"
                                                        placeholder="YouTube video url" required/>
                                             </div>
                                         </div>
@@ -146,8 +169,7 @@ const CreateMovie = ({ match }) => {
                                             <label htmlFor="inputPages"
                                                    className="col-sm-2 col-form-label">IMDB rating</label>
                                             <div className="col-sm-10">
-                                                <input type="number" className="input-box form-control" name="imdb_rating"
-                                                       ref={register} defaultValue={defaultValues.imdb_rating} id="inputPages"
+                                                <input type="number" className="input-box form-control" id="inputRating"
                                                        placeholder="0.0" step="0.1" min="0" max="10" required/>
                                             </div>
                                         </div>
@@ -155,8 +177,7 @@ const CreateMovie = ({ match }) => {
                                             <label htmlFor="inputAuthor"
                                                    className="col-sm-2 col-form-label">Duration (min)</label>
                                             <div className="col-sm-10">
-                                                <input type="number" className="input-box form-control" name="duration_min"
-                                                       ref={register} defaultValue={defaultValues.duration_min} id="inputAuthor"
+                                                <input type="number" className="input-box form-control" id="inputDuration"
                                                        placeholder="0" min="1" required/>
                                             </div>
                                         </div>
@@ -164,17 +185,15 @@ const CreateMovie = ({ match }) => {
                                             <label htmlFor="inputDate"
                                                    className="col-sm-2 col-form-label">Release date</label>
                                             <div className="col-sm-10">
-                                                <input type="date" className="input-box form-control" name="release" id="inputDate"
-                                                       ref={register} defaultValue={defaultValues.release} required/>
+                                                <input type="date" className="input-box form-control" id="inputRelease" required/>
                                             </div>
                                         </div>
                                         <div className="form-group row">
                                             <label htmlFor="inputDescription"
                                                    className="col-sm-2 col-form-label">Movie description</label>
                                             <div className="col-sm-10">
-                                                <textarea className="input-box form-control" rows="10" cols="45" name="description"
-                                                       ref={register} defaultValue={defaultValues.description} id="inputDescription"
-                                                          placeholder="Movie description" required/>
+                                                <textarea className="input-box form-control" rows="10" cols="45" id="inputDescription"
+                                                       placeholder="Movie description" required/>
                                             </div>
                                         </div>
                                         <button type="reset" onClick={() => window.history.back()}

@@ -2,17 +2,15 @@ import React, { useState, useEffect } from "react";
 import firebase from "./config/firebaseConfig";
 import { toast } from "react-toastify";
 import { Redirect } from "react-router";
-import { useForm } from "react-hook-form";
 
 
 const CreateMovie = ({ match }) => {
     // Redirect to a home page after adding a new movie
     const [redirect, setRedirect] = useState(null);
+    const [values, setValues] = useState({});
     const [defaultValues, setDefaultValues] = useState({});
-    const { register, handleSubmit } = useForm();
 
     useEffect(() => {
-        // submitData(match.params.slug);
         populateValues();
     }, []);
 
@@ -30,33 +28,30 @@ const CreateMovie = ({ match }) => {
                 stars: movie.stars.join(", "),
                 countries: movie.countries.join(", ")
             });
+            console.log(defaultValues);
         });
     };
 
-    const onSubmit = (data) => {
+    const handleSubmit = (event) => {
         // Form submit
         const db = firebase.firestore();
         const fetchData = async () => {
             if (match.params.slug) {
                 // User edited an existing movie
-                Object.keys(data).forEach(function(key) {
-                    // trim each value in data
-                    this[key] = this[key].trim();
-                }, data);
                 return await db.collection("movies").doc(match.params.slug).set({
-                    ...data,
-                    genre: data.genre.trim().split(", "),
-                    stars: data.stars.trim().split(", "),
-                    countries: data.countries.trim().split(", "),
+                    ...values,
+                    genre: values.genre.value.split(", "),
+                    stars: values.stars.split(", "),
+                    countries: values.countries.split(", "),
                     user: firebase.auth().currentUser.uid
                 });
             } else {
                 // Save new movie
                 return await db.collection("movies").add({
-                    ...data,
-                    genre: data.genre.trim().split(", "),
-                    stars: data.stars.trim().split(", "),
-                    countries: data.countries.trim().split(", "),
+                    ...values,
+                    genre: values.genre.split(", "),
+                    stars: values.stars.split(", "),
+                    countries: values.countries.split(", "),
                     user: firebase.auth().currentUser.uid
                 });
             }
@@ -69,8 +64,18 @@ const CreateMovie = ({ match }) => {
             setRedirect(`/movie/${id}`);
             toast.success("Movie has been successfully saved!");
         }).catch(error => {
-            console.log("ERROR:", error);
             toast.error("Something went wrong! Please try again later");
+        });
+        event.preventDefault();
+    };
+
+    const handleChange = (event) => {
+        // Set new value
+        const {name, value} = event.target;
+
+        setValues({
+            ...values,
+            [name]: value.trim()
         });
     };
 
@@ -89,14 +94,15 @@ const CreateMovie = ({ match }) => {
                     <div className="col-md-11">
                         <div className="card">
                             <div className="card-body new-movie-card">
-                                <form id="new-movie-form" onSubmit={handleSubmit(onSubmit)}>
+                                <form id="new-movie-form" onSubmit={handleSubmit}>
                                     <fieldset className="form-group">
                                         <legend className="border-bottom mb-3">{match.params.slug ? "Edit Movie" : "New Movie"}</legend>
                                         <div className="form-group row">
                                             <label htmlFor="inputTitle" className="col-sm-2 col-form-label">Title</label>
                                             <div className="col-sm-10">
                                                 <input type="text" className="input-box form-control" name="title" id="inputTitle"
-                                                       ref={register} defaultValue={defaultValues.title} placeholder="Title" required/>
+                                                       onChange={handleChange} value={values.title} defaultValue={defaultValues.title}
+                                                       placeholder="Title" required/>
                                             </div>
                                         </div>
                                         <div className="form-group row">
@@ -104,8 +110,8 @@ const CreateMovie = ({ match }) => {
                                                    className="col-sm-2 col-form-label">Genres</label>
                                             <div className="col-sm-10">
                                                 <input type="text" className="input-box form-control" name="genre" id="inputAuthor"
-                                                       ref={register} defaultValue={defaultValues.genre}
-                                                       placeholder="Action, Sci-Fi, ..." required/>
+                                                       onChange={handleChange} value={values.genre} defaultValue={defaultValues.genre}
+                                                       placeholder="Action, Sci-Fi, ..."/>
                                             </div>
                                         </div>
                                         <div className="form-group row">
@@ -113,7 +119,8 @@ const CreateMovie = ({ match }) => {
                                                    className="col-sm-2 col-form-label">Stars</label>
                                             <div className="col-sm-10">
                                                 <input type="text" className="input-box form-control" name="stars" id="inputAuthor"
-                                                       ref={register} defaultValue={defaultValues.stars} placeholder="Star, ..." required/>
+                                                       onChange={handleChange} value={values.stars} defaultValue={defaultValues.stars}
+                                                       placeholder="Star, ..."/>
                                             </div>
                                         </div>
                                         <div className="form-group row">
@@ -121,7 +128,7 @@ const CreateMovie = ({ match }) => {
                                                    className="col-sm-2 col-form-label">Countries</label>
                                             <div className="col-sm-10">
                                                 <input type="text" className="input-box form-control" name="countries" id="inputAuthor"
-                                                       ref={register({required: true})} defaultValue={defaultValues.countries}
+                                                       onChange={handleChange} value={values.countries} defaultValue={defaultValues.countries}
                                                        placeholder="Country, ..."/>
                                             </div>
                                         </div>
@@ -130,7 +137,8 @@ const CreateMovie = ({ match }) => {
                                                    className="col-sm-2 col-form-label">Movie cover</label>
                                             <div className="col-sm-10">
                                                 <input type="url" className="input-box form-control" name="cover" id="inputImage"
-                                                       ref={register} defaultValue={defaultValues.cover} placeholder="Image url" required/>
+                                                       onChange={handleChange} value={values.cover} defaultValue={defaultValues.cover}
+                                                       placeholder="Image url" required/>
                                             </div>
                                         </div>
                                         <div className="form-group row">
@@ -138,8 +146,8 @@ const CreateMovie = ({ match }) => {
                                                    className="col-sm-2 col-form-label">Video trailer</label>
                                             <div className="col-sm-10">
                                                 <input type="url" className="input-box form-control" name="trailer"
-                                                       ref={register} defaultValue={defaultValues.trailer} id="inputImage"
-                                                       placeholder="YouTube video url" required/>
+                                                       onChange={handleChange} value={values.trailer} defaultValue={defaultValues.trailer}
+                                                       id="inputImage" placeholder="YouTube video url" required/>
                                             </div>
                                         </div>
                                         <div className="form-group row">
@@ -147,8 +155,8 @@ const CreateMovie = ({ match }) => {
                                                    className="col-sm-2 col-form-label">IMDB rating</label>
                                             <div className="col-sm-10">
                                                 <input type="number" className="input-box form-control" name="imdb_rating"
-                                                       ref={register} defaultValue={defaultValues.imdb_rating} id="inputPages"
-                                                       placeholder="0.0" step="0.1" min="0" max="10" required/>
+                                                       onChange={handleChange} value={values.imdb_rating} defaultValue={defaultValues.imdb_rating}
+                                                       id="inputPages" placeholder="0.0" step="0.1" min="0" max="10" required/>
                                             </div>
                                         </div>
                                         <div className="form-group row">
@@ -156,8 +164,8 @@ const CreateMovie = ({ match }) => {
                                                    className="col-sm-2 col-form-label">Duration (min)</label>
                                             <div className="col-sm-10">
                                                 <input type="number" className="input-box form-control" name="duration_min"
-                                                       ref={register} defaultValue={defaultValues.duration_min} id="inputAuthor"
-                                                       placeholder="0" min="1" required/>
+                                                       onChange={handleChange} value={values.duration_min} defaultValue={defaultValues.duration_min}
+                                                       id="inputAuthor" placeholder="0" min="1" required/>
                                             </div>
                                         </div>
                                         <div className="form-group row">
@@ -165,7 +173,7 @@ const CreateMovie = ({ match }) => {
                                                    className="col-sm-2 col-form-label">Release date</label>
                                             <div className="col-sm-10">
                                                 <input type="date" className="input-box form-control" name="release" id="inputDate"
-                                                       ref={register} defaultValue={defaultValues.release} required/>
+                                                       onChange={handleChange} value={values.release} defaultValue={defaultValues.release} required/>
                                             </div>
                                         </div>
                                         <div className="form-group row">
@@ -173,8 +181,8 @@ const CreateMovie = ({ match }) => {
                                                    className="col-sm-2 col-form-label">Movie description</label>
                                             <div className="col-sm-10">
                                                 <textarea className="input-box form-control" rows="10" cols="45" name="description"
-                                                       ref={register} defaultValue={defaultValues.description} id="inputDescription"
-                                                          placeholder="Movie description" required/>
+                                                       onChange={handleChange} value={values.description} defaultValue={defaultValues.description}
+                                                          id="inputDescription" placeholder="Movie description" required/>
                                             </div>
                                         </div>
                                         <button type="reset" onClick={() => window.history.back()}

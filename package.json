@@ -20,7 +20,8 @@
     "react-toastify": "^5.5.0",
     "redux": "^4.0.5",
     "url-search-params-polyfill": "^8.0.0",
-    "react-router": "^5.1.2"
+    "react-router": "^5.1.2",
+    "react-hook-form": "^5.5.3"
   },
   "scripts": {
     "start": "react-scripts start",
