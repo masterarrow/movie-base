@@ -1,4 +1,4 @@
-import React, {useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import 'url-search-params-polyfill';
 import Movie from "./components/Movie";
 import Loading from "./components/Loading";
@@ -19,12 +19,12 @@ const Home = () => {
 
     const getItems = () => {
         // Get all movies from the Firebase
-        const fetchData = async () => {
-            const db = firebase.firestore();
-            return await db.collection("movies").get();
-        };
-        fetchData().then(data => {
-            setMovies(data.docs.map(doc => ({ ...doc.data(), id: doc.id })));
+        const db = firebase.firestore();
+        // Return to cancel subscription on snapshot updates
+        return db.collection("movies").onSnapshot(snapshot => {
+            const data = [];
+            snapshot.forEach(doc => data.push({ ...doc.data(), id: doc.id }));
+            setMovies(data);
             setLoading(false);
         });
     };

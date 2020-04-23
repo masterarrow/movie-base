@@ -4,9 +4,14 @@ import { Link } from "react-router-dom";
 import {toast} from "react-toastify";
 import Moment from "moment";
 import Movie from "./components/Movie";
+import Loading from "./components/Loading";
 import firebase from "./config/firebaseConfig";
 import { AuthContext } from "./config/Auth";
-import "./MovieDetails.css"
+import "./MovieDetails.css";
+
+
+// To import a big components :)
+const VideoFrame = React.lazy(() => import("./components/VideoFrame"));
 
 
 const MovieDetails = ({ match }) => {
@@ -25,7 +30,7 @@ const MovieDetails = ({ match }) => {
         // Get movie data
         const fetchData = async () => {
             const db = firebase.firestore();
-            return  await db.collection("movies").doc(id).get();
+            return await db.collection("movies").doc(id).get();
         };
         fetchData().then(data => {
             let movie = { ...data.data(), id: id };
@@ -84,9 +89,9 @@ const MovieDetails = ({ match }) => {
                     <h3 className="detail-movie-title">{item.title}</h3>
                     {buttons()}
                 </div>
-                <iframe title={item.id} width="1244" height="700" src={item.trailer} frameBorder="0"
-                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen/>
+                <React.Suspense fallback={<Loading classname="mt-2"/>}>
+                    <VideoFrame id={item.id} trailer={item.trailer}/>
+                </React.Suspense>
                 <div className="styled-row border-top row">
                     <Movie movie={item} link={false}/>
                     <div className="column col-6">

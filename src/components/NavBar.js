@@ -24,12 +24,18 @@ const NavBar = () => {
                 <>
                     <Link to="/new" className="dropdown-item">Add Movie</Link>
                     <div className="dropdown-divider"/>
+                    <Link to="/profile" className="dropdown-item">Profile</Link>
+                    <div className="dropdown-divider"/>
                     <Link to="/sign-out" className="dropdown-item">Sign Out</Link>
                 </>
             );
         } else {
             menu = (
-                <Link to="/sign-out" className="dropdown-item">Sign Out</Link>
+                <>
+                    <Link to="/profile" className="dropdown-item">Profile</Link>
+                    <div className="dropdown-divider"/>
+                    <Link to="/sign-out" className="dropdown-item">Sign Out</Link>
+                </>
             );
             information = (
                 <NavLink className="nav-link text-warning" to="/information" style={linkStyle}>Information</NavLink>

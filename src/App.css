@@ -125,12 +125,6 @@ body {
     font-weight: bolder;
 }
 
-.text-box-reset {
-    border: none;
-    border-bottom: 2px solid #ffc55a;
-    width: 25rem;
-}
-
 .new-movie {
     background-color: var(--background-color);
     transform: translate(0%, 3%);
@@ -186,4 +180,13 @@ body {
 
 .col-form-label {
     font-size: medium;
+}
+
+.profile {
+    display: flex;
+    margin-top: 6rem;
+    margin-left: 6rem;
+    text-align: left;
+    width: 40rem;
+    box-shadow: 0 5px 15px lightgrey;
 }

@@ -15,6 +15,8 @@ import SignIn from "./SignIn";
 import SignOut from "./SignOut";
 import Error404 from "./Error404";
 import VerificationPage from "./VerificationPage";
+import RequestResetPassword from "./RequestResetPassword";
+import UserProfile from "./UserProfile";
 
 
 function App() {
@@ -40,6 +42,8 @@ function App() {
                     <Route path="/sign-up" render={() => currentUser ? <Redirect to="/"/> : <SignIn/>}/>
                     <Route path="/sign-out" render={() => (currentUser === false) ? <Redirect to="/"/> : <SignOut/>}/>
                     <Route path="/information" component={VerificationPage}/>
+                    <Route path="/reset-password" component={RequestResetPassword}/>
+                    <Route path="/profile" component={UserProfile}/>
                     <Route path="*" component={Error404}/>
                 </Switch>
             </div>
