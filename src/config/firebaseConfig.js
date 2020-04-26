@@ -1,4 +1,5 @@
 import firebase from 'firebase/app';
+import * as store from "firebase";
 import 'firebase/firestore'
 import 'firebase/auth'
 
@@ -15,6 +16,10 @@ const config = {
   measurementId: process.env.REACT_APP_MEASUREMENT_ID
 };
 
+// Database
 firebase.initializeApp(config);
+
+// Storage
+export const storage = store.storage(firebase);
 
 export default firebase;

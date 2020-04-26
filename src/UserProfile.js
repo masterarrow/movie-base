@@ -3,12 +3,14 @@ import { Redirect } from "react-router-dom"
 import { toast } from "react-toastify";
 import { AuthContext } from "./config/Auth";
 import { useForm } from "react-hook-form";
-import firebase from "./config/firebaseConfig";
+import firebase, { storage } from "./config/firebaseConfig";
+// import * as store from "firebase";
 
 
 const UserProfile = () => {
     // Get user credentials
     const { currentUser } = useContext(AuthContext);
+    // Default user data before changes
     const [defaultValues, setDefaultValues] = useState({});
     const { register, handleSubmit } = useForm();
     // User profile data has not been changed
@@ -21,10 +23,14 @@ const UserProfile = () => {
     const getProfile = () => {
         // Get user profile
         try {
-            setDefaultValues({
-                ...firebase.auth().currentUser.providerData[0]
+            const profileData = firebase.auth().currentUser.providerData[0];
+            storage.ref().child(profileData.photoURL).getDownloadURL().then((value) => {
+                setDefaultValues({
+                    ...profileData,
+                    photo: value
+                });
+                setUpdated(false);
             });
-            setUpdated(false);
         } catch (e) {
             // If error, go to the Home page
             return <Redirect to="/"/>
@@ -32,21 +38,23 @@ const UserProfile = () => {
     };
 
     const onSubmit = (data) => {
-        console.log("Data:", data);
         // Submit data
         let user = firebase.auth().currentUser;
+
         if (data.picture.length > 0) {
-            console.log("Picture:", data.picture);
-            // Store profile picture to the Firestore
-            let photoURL = "https://firebasestorage.googleapis.com/v0/b/movie-dbase.appspot.com/o/profiles%2Fdefault%2Fdefault_user.jpg?alt=media&token=8c26ab12-569e-4399-bb8c-e53929ca6540";
-            // TODO: Add file to the Firestore and get its link
-            // Update profile picture
-            user.updateProfile({
-                photoURL: photoURL
-            }).then(() => {
-                setUpdated(true);
-                //toast.success("Your profile has been updated");
-            });
+            // Store profile picture to the Storage
+            let pictureRef = storage.ref().child("profiles").child(data.picture[0].name);
+            pictureRef.put(data.picture[0]).then(() => {
+                // Update profile picture in The Firestore
+                user.updateProfile({
+                    photoURL: `profiles/${data.picture[0].name}`
+                }).then(() => {
+                    setUpdated(true);
+                    toast.success("Your profile has been updated");
+                });
+            }).catch(() => {
+                toast.error("Something went wrong! Please try again later");
+            })
         } else if (data.displayName !== defaultValues.displayName) {
             // Update user name
             user.updateProfile({
@@ -60,7 +68,7 @@ const UserProfile = () => {
             // TODO: Change email
             console.log("Change email");
             user.reauthenticateWithCredential(firebase.auth.AuthCredential).then(() => {
-                console.log("Reauth");
+                console.log("Auth");
             }).catch((e) => {
                 console.log(e);
             });
@@ -98,7 +106,7 @@ const UserProfile = () => {
             <div className="card col-md-5 profile">
                 <legend className="legend border-bottom mt-2 mb-4">Profile</legend>
                 <div className="media">
-                    <img className="rounded-circle ml-4" src={defaultValues.photoURL} height="68" alt="..."/>
+                    <img className="rounded-circle ml-4" src={defaultValues.photo} height="68" alt="..."/>
                         <div className="media-body">
                             <h2 className="account-heading ml-3">{defaultValues.displayName}</h2>
                             <p className="text-secondary ml-3">{defaultValues.email}</p>
