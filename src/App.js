@@ -12,6 +12,7 @@ import Home from "./Home";
 import MovieDetails from "./MovieDetails";
 import CreateMovie from "./CreateMovie";
 import SignIn from "./SignIn";
+import SignUp from "./SignUp";
 import SignOut from "./SignOut";
 import Error404 from "./Error404";
 import VerificationPage from "./VerificationPage";
@@ -39,7 +40,7 @@ function App() {
                     <PrivateRoute path="/new" exact component={CreateMovie}/>
                     <PrivateRoute path="/new/:slug" exact component={CreateMovie}/>
                     <Route path="/sign-in" render={() => currentUser ? <Redirect to="/"/> : <SignIn/>}/>
-                    <Route path="/sign-up" render={() => currentUser ? <Redirect to="/"/> : <SignIn/>}/>
+                    <Route path="/sign-up" render={() => currentUser ? <Redirect to="/"/> : <SignUp/>}/>
                     <Route path="/sign-out" render={() => (currentUser === false) ? <Redirect to="/"/> : <SignOut/>}/>
                     <Route path="/information" component={VerificationPage}/>
                     <Route path="/reset-password" component={RequestResetPassword}/>

@@ -4,7 +4,6 @@ import { toast } from "react-toastify";
 import { AuthContext } from "./config/Auth";
 import { useForm } from "react-hook-form";
 import firebase, { storage } from "./config/firebaseConfig";
-// import * as store from "firebase";
 
 
 const UserProfile = () => {
@@ -45,7 +44,7 @@ const UserProfile = () => {
             // Store profile picture to the Storage
             let pictureRef = storage.ref().child("profiles").child(data.picture[0].name);
             pictureRef.put(data.picture[0]).then(() => {
-                // Update profile picture in The Firestore
+                // Update profile picture in the Firestore
                 user.updateProfile({
                     photoURL: `profiles/${data.picture[0].name}`
                 }).then(() => {
@@ -65,30 +64,34 @@ const UserProfile = () => {
             });
         } else if (data.email !== defaultValues.email) {
             // Update user email
-            // TODO: Change email
-            console.log("Change email");
-            user.reauthenticateWithCredential(firebase.auth.AuthCredential).then(() => {
-                console.log("Auth");
-            }).catch((e) => {
-                console.log(e);
-            });
-            user.verifyBeforeUpdateEmail(data.email).then(async () => {
-                setUpdated(true);
-                toast.success("To change your email. Check your mail and follow the instructions");
-            }).catch((e) => {
-                console.log(e);
-            });
+            let password = (window.prompt("Enter your password"));
+            if (password) {
+                // Re-authenticate a user
+                firebase.auth().signInWithEmailAndPassword(defaultValues.email, password).then(() => {
+                    // Send verification email
+                    user.verifyBeforeUpdateEmail(data.email).then(async () => {
+                        setUpdated(true);
+                        toast.success("To complete changes check your email and follow the instructions");
+                    });
+                }).catch(() => {
+                    toast.error("Something went wrong! Please try again later");
+                });
+            }
         }
     };
 
     const deleteAccount = () => {
         // Ask user to confirm deletion
-        if (window.confirm("Are you sure you want to delete your account?")) {
-            // Delete user account
-            firebase.auth().currentUser.delete().then(() => {
-                toast.info("Your account has been deleted");
-            }).catch((e) => {
-                toast.error("Something went wrong! Please try again later");
+        let password = (window.prompt("Enter your password to confirm the deletion"));
+        if (password) {
+            // Re-authenticate a user
+            firebase.auth().signInWithEmailAndPassword(defaultValues.email, "arrow159753").then(() => {
+                // Delete user account
+                firebase.auth().currentUser.delete().then(() => {
+                    toast.info("Your account has been deleted");
+                }).catch(() => {
+                    toast.error("Something went wrong! Please try again later");
+                });
             });
         }
     };
