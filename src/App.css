@@ -80,6 +80,12 @@ body {
     color: white;
 }
 
+.sign-up {
+    background-color: var(--background-color);
+    transform: translate(0%, 40%);
+    text-align: left;
+}
+
 .sign-in {
     background-color: var(--background-color);
     transform: translate(0%, 60%);

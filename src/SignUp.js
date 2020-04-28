@@ -6,14 +6,18 @@ import firebase from "./config/firebaseConfig";
 import { AuthContext } from "./config/Auth";
 
 
-const SignIn = () => {
+const SignUp = () => {
     // Get user credentials
     const { currentUser } = useContext(AuthContext);
 
     const handSignIn = useCallback(
         async event => {
             event.preventDefault();
-            const { name, email, password } = event.target.elements;
+            const { name, email, password, confirm } = event.target.elements;
+            if (password !== confirm){
+                toast.error("Passwords did not match");
+                return
+            }
             // Sign using Firebase
             try {
                 firebase.auth().createUserWithEmailAndPassword(email.value, password.value).then(() => {
@@ -42,7 +46,7 @@ const SignIn = () => {
     return (
         <>
             {renderRedirect()}
-            <main role="main" className="container sign-in">
+            <main role="main" className="container sign-up">
                 <div className="row justify-content-center">
                     <div className="col-md-7">
                         <div className="card">
@@ -97,6 +101,23 @@ const SignIn = () => {
                                                    placeholder="Password"
                                                    aria-label="Password" required/>
                                         </div>
+                                        <div className="text-box input-group mb-4">
+                                            <div className="input-group-prepend">
+                                                <span className="input-group-text">
+                                                    <svg className="bi bi-lock-fill" width="1em" height="1em"
+                                                         viewBox="0 0 16 16" fill="currentColor"
+                                                         xmlns="http://www.w3.org/2000/svg">
+                                                        <rect width="11" height="9" x="2.5" y="7" rx="2"/>
+                                                        <path fill-rule="evenodd"
+                                                              d="M4.5 4a3.5 3.5 0 117 0v3h-1V4a2.5 2.5 0 00-5 0v3h-1V4z"
+                                                              clip-rule="evenodd"/>
+                                                    </svg>
+                                                </span>
+                                            </div>
+                                            <input name="confirm" type="password" className="form-control"
+                                                   placeholder="Confirm Password"
+                                                   aria-label="Confirm Password" required/>
+                                        </div>
                                         <button type="submit"
                                                 className="btn btn-outline-success float-right">Sign Up</button>
                                         <p className="text-muted">Already have an account? <Link to="/sign-in">Sign In</Link></p>
@@ -111,4 +132,4 @@ const SignIn = () => {
     );
 };
 
-export default SignIn;
+export default SignUp;
