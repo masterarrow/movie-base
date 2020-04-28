@@ -14,10 +14,8 @@ const SignUp = () => {
         async event => {
             event.preventDefault();
             const { name, email, password, confirm } = event.target.elements;
-            if (password !== confirm){
-                toast.error("Passwords did not match");
-                return
-            }
+            if (password !== confirm) return toast.error("Passwords did not match");
+
             // Sign using Firebase
             try {
                 firebase.auth().createUserWithEmailAndPassword(email.value, password.value).then(() => {
