@@ -14,9 +14,12 @@ const CreateMovie = ({ match }) => {
     useEffect(() => {
         // submitData(match.params.slug);
         populateValues();
-    }, []);
+    }, [match.params.slug]);
 
     const populateValues = () => {
+        // New movie
+        if (!match.params.slug) return setDefaultValues({description: ""});
+
         // Get movie data
         const fetchData = async () => {
             const db = firebase.firestore();
@@ -50,16 +53,16 @@ const CreateMovie = ({ match }) => {
                     countries: data.countries.trim().split(", "),
                     user: firebase.auth().currentUser.uid
                 });
-            } else {
-                // Save new movie
-                return await db.collection("movies").add({
-                    ...data,
-                    genre: data.genre.trim().split(", "),
-                    stars: data.stars.trim().split(", "),
-                    countries: data.countries.trim().split(", "),
-                    user: firebase.auth().currentUser.uid
-                });
             }
+
+            // Save new movie
+            return await db.collection("movies").add({
+                ...data,
+                genre: data.genre.trim().split(", "),
+                stars: data.stars.trim().split(", "),
+                countries: data.countries.trim().split(", "),
+                user: firebase.auth().currentUser.uid
+            });
         };
 
         fetchData().then(data => {

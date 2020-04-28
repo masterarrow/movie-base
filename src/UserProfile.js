@@ -54,7 +54,8 @@ const UserProfile = () => {
             }).catch(() => {
                 toast.error("Something went wrong! Please try again later");
             })
-        } else if (data.displayName !== defaultValues.displayName) {
+        }
+        if (data.displayName !== defaultValues.displayName) {
             // Update user name
             user.updateProfile({
                 displayName: data.displayName
@@ -62,7 +63,8 @@ const UserProfile = () => {
                 setUpdated(true);
                 toast.success("Your profile has been updated");
             });
-        } else if (data.email !== defaultValues.email) {
+        }
+        if (data.email !== defaultValues.email) {
             // Update user email
             let password = (window.prompt("Enter your password"));
             if (password) {
