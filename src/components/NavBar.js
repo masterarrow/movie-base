@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { NavLink, Link } from 'react-router-dom';
 import { AuthContext } from "../config/Auth";
 
@@ -6,6 +6,22 @@ import { AuthContext } from "../config/Auth";
 const NavBar = () => {
     // Get user credentials
     const { currentUser } = useContext(AuthContext);
+
+    // Get a search parameters from the url string
+    const searchParams = new URLSearchParams(window.location.search);
+    const searchStr = searchParams.get("search") || "";
+
+    useEffect(() => {
+        // Search field
+        const input = document.getElementById("search");
+
+        const searchForm = document.getElementById("search-form");
+        searchForm.addEventListener("submit", (event) => {
+            // Add a search parameter to the url
+            window.location.search = `?search=${input.value}`;
+            event.preventDefault();
+        });
+    }, [searchStr]);
 
     const mainLink = {
         color: "white",
