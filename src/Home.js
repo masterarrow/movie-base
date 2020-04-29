@@ -44,7 +44,7 @@ const Home = () => {
     return (
         <header className="App-header">
             {/* Display search string */}
-            { q ? <p style={{color: "#00acc1"}}>Results for: "{q}"</p> : ""}
+            { q ? <p className="search-results-text">Results for: "{q}"</p> : "" }
             <div className="row">
                 {movies.map(movie =>
                     <div className="col-auto">
