@@ -49,7 +49,7 @@ const Details = ({ movie }) => {
             </div>
             <div className="text">
                 Genre:
-                <span className="ml-1" style={{color: "rgb(15,205,140)"}}>
+                <span className="ml-1" style={{color: "rgb(0,205,58)"}}>
                     {clipText(movie.genre.join(", "), 45)}
                 </span>
             </div>
