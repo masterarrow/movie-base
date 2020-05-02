@@ -8,6 +8,23 @@ You can test this site by following the link [Movie base](https://movie-dbase.we
 
 To run this project on your local machine in the project directory, you can run:
 
+### Setup process
+1. Install [Node.js](https://nodejs.org/en/).
+4. Create `.env` file with the next data:
+
+````
+REACT_APP_API_KEY=""
+REACT_APP_AUTH_DOMAIN=""
+REACT_APP_DATABASE_URL=""
+REACT_APP_PROJECT_ID=""
+REACT_APP_STORAGE_BUCKET=""
+REACT_APP_MESSAGING_SENDER_ID=""
+REACT_APP_APP_ID=""
+REACT_APP_MEASUREMENT_ID=""
+````
+
+All this data you can get after creating [Firebase Project](https://firebase.google.com/).
+
 ### `npm install`
 
 To get all dependencies needed to run the project.
