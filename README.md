@@ -6,7 +6,11 @@ You can test this site by following the link [Movie base](https://movie-dbase.we
 
 ## Available Scripts
 
-In the project directory, you can run:
+To run this project on your local machine in the project directory, you can run:
+
+### `npm install`
+
+To get all dependencies needed to run the project.
 
 ### `npm start`
 
