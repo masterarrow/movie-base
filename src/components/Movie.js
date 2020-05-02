@@ -9,10 +9,8 @@ const Movie = ({ movie, link }) => {
     if (link) {
         // Home page
         return (
-            <Tooltip placement="right-end" title={(
-                <div className="movie-tooltip">
-                    <Details movie={movie}/>
-                </div>
+            <Tooltip enterDelay={500} leaveDelay={200} placement="right-end" title={(
+                <Details movie={movie}/>
             )}>
                 <Link to={`/movie/${movie.id}`} className="movie-card card">
                     <img className="card-img-top" height="430" src={movie.cover} alt={movie.title}/>
@@ -22,9 +20,7 @@ const Movie = ({ movie, link }) => {
     } else {
         // Movie details page
         return (
-            <div className="styled-card card">
-                <img className="card-img-top" height="430" src={movie.cover} alt={movie.title}/>
-            </div>
+            <img className="styled-card card" height="430" src={movie.cover} alt={movie.title}/>
         );
     }
 };

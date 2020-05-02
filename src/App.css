@@ -200,3 +200,36 @@ body {
 .search-results-text {
     color: rgb(0, 172, 193);
 }
+
+.pagination {
+    box-shadow: 0 0px 5px lightgrey;
+}
+
+.page-link {
+    background-color: var(--background-color);
+    font-size: small;
+    color: rgb(0, 172, 193);
+    border-color: #718393;
+}
+
+.page-link:hover {
+    /* background-color: rgb(133, 156, 193); */
+    background-color: rgb(145, 193, 169);
+    color: rgb(18, 32, 193);
+    border-color: #718393;
+}
+
+.page-item.disabled .page-link {
+    color: #718393;
+    pointer-events: none;
+    cursor: auto;
+    background-color: var(--background-color);
+    border-color: #718393;
+}
+
+.page-item.active .page-link {
+    z-index: 1;
+    border-color: #718393;
+    /* background-color: #526993; */
+     background-color: rgb(137, 150, 193);
+}

@@ -5,17 +5,17 @@ import Moment from "moment";
 const Details = ({ movie }) => {
     const clipText = (text, len) => {
         if (text.length > len) {
-            return text = text.substr(0, len) + "..."
+            return text.substr(0, len) + "..."
         } else {
             return text;
         }
     };
 
     return (
-        <>
+        <div className="movie-tooltip">
             <div className="row">
                 <h6 className="title ml-4 mt-1">{clipText(movie.title, 22)}</h6>
-                <h5 className="mt-2 ml-3" style={{color: "lightgrey"}}>
+                <h5 className="mt-2 ml-3" style={{color: "grey"}}>
                     {Moment(movie.release).format("YYYY")}
                 </h5>
             </div>
@@ -59,7 +59,7 @@ const Details = ({ movie }) => {
                     {clipText(movie.stars.join(", "), 45)}
                 </span>
             </div>
-        </>
+        </div>
     )
 };
 
